@@ -19,7 +19,7 @@ const products = [
   },
   {
     id: 3,
-    name: 'Floral Casual Summer Dress',
+    name: 'Floral Casual  Dress',
     category: 'Women',
     price: 1499,
     sizes: ['XS', 'S', 'M', 'L'],
