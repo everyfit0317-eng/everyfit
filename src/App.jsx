@@ -12,7 +12,7 @@ const products = [
     originalPrice: 1299,
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
-    description: '100% Premium Bio-washed 240 GSM Cotton.'
+    description: '100% Bio-washed heavy 240 GSM combed cotton.'
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const products = [
     originalPrice: 2499,
     sizes: ['M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
-    description: 'Heavyweight fleece fabric, drop shoulder fit.'
+    description: 'Premium heavyweight fleece fabric, tailored drop shoulder fit.'
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const products = [
     originalPrice: 2199,
     sizes: ['XS', 'S', 'M', 'L'],
     image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80',
-    description: 'Breathable rayon fabric with elegant floral print.'
+    description: 'Ultra-lightweight breathable rayon with signature chic print.'
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const products = [
     originalPrice: 2299,
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80',
-    description: 'Comfortable stretch fit for all-day styling.'
+    description: 'Structured silhouette designed for modern elevated styling.'
   }
 ];
 
@@ -75,7 +75,7 @@ export default function App() {
   const openCheckoutModal = (product) => {
     const chosenSize = selectedSizes[product.id];
     if (!chosenSize) {
-      alert('Kripya pehle size select karein!');
+      alert('Kripya pehle apna size select karein!');
       return;
     }
     setSelectedProduct(product);
@@ -90,21 +90,21 @@ export default function App() {
     const size = selectedSizes[selectedProduct.id];
 
     const message = 
-      `🛍️ *NEW ORDER - EVERYFIT STORE*\n` +
+      `🛍️ *NEW ORDER - EVERYFIT STUDIO*\n` +
       `--------------------------------\n` +
       `*Product:* ${selectedProduct.name}\n` +
       `*Size:* ${size}\n` +
       `*Price:* ₹${selectedProduct.price}\n` +
       `--------------------------------\n` +
-      `📍 *DELIVERY ADDRESS:*\n` +
+      `📍 *DELIVERY DETAILS:*\n` +
       `*Name:* ${addressData.name}\n` +
-      `*Contact:* ${addressData.phone}\n` +
+      `*Mobile:* ${addressData.phone}\n` +
       `*Address:* ${addressData.address}\n` +
       `*City:* ${addressData.city}\n` +
       `*Pincode:* ${addressData.pincode}\n` +
       `*Payment:* ${addressData.paymentMethod}\n` +
       `--------------------------------\n` +
-      `Please confirm my order and share tracking details!`;
+      `Please confirm my order & share invoice copy!`;
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -113,46 +113,15 @@ export default function App() {
 
   return (
     <div className="store-container">
-      {/* Header */}
+      {/* Luxury Minimal Header */}
       <header className="navbar">
+        <div className="top-banner">Complimentary Pan-India Express Delivery on All Orders</div>
         <div className="brand-logo">EVERYFIT</div>
-        <p className="tagline">Premium Streetwear & Everyday Essentials</p>
+        <p className="tagline">MODERN STREETWEAR & ESSENTIALS</p>
       </header>
 
-      {/* Trust Badges Bar */}
-      <section className="trust-strip">
-        <div className="trust-item">
-          <span className="trust-icon">💵</span>
-          <div>
-            <strong>Cash on Delivery</strong>
-            <p>Pay safely at doorstep</p>
-          </div>
-        </div>
-        <div className="trust-item">
-          <span className="trust-icon">🔄</span>
-          <div>
-            <strong>7-Day Easy Exchange</strong>
-            <p>Hassle-free size replacement</p>
-          </div>
-        </div>
-        <div className="trust-item">
-          <span className="trust-icon">🚚</span>
-          <div>
-            <strong>Pan-India Shipping</strong>
-            <p>Express 3-5 day delivery</p>
-          </div>
-        </div>
-        <div className="trust-item">
-          <span className="trust-icon">✨</span>
-          <div>
-            <strong>100% Bio-Washed</strong>
-            <p>Super combed 240+ GSM</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <div className="category-bar">
+      {/* Category Navigation */}
+      <nav className="category-bar">
         {categories.map(cat => (
           <button 
             key={cat} 
@@ -162,9 +131,9 @@ export default function App() {
             {cat}
           </button>
         ))}
-      </div>
+      </nav>
 
-      {/* Product Grid */}
+      {/* Product Showcase */}
       <main className="product-grid">
         {filteredProducts.map(product => (
           <div key={product.id} className="product-card">
@@ -174,7 +143,7 @@ export default function App() {
             </div>
             
             <div className="product-info">
-              <h3>{product.name}</h3>
+              <h3 className="product-name">{product.name}</h3>
               <p className="description">{product.description}</p>
               
               <div className="pricing">
@@ -182,18 +151,18 @@ export default function App() {
                 <span className="original-price">₹{product.originalPrice}</span>
               </div>
 
-              {/* Size Selector with Size Guide Link */}
+              {/* Size Selector */}
               <div className="size-selector-header">
-                <span className="label">Select Size:</span>
+                <span className="size-label">Select Size</span>
                 <button 
                   type="button" 
-                  className="size-guide-btn" 
+                  className="size-guide-link" 
                   onClick={() => {
                     setSizeGuideTab(product.category === 'Women' ? 'Women' : 'Men');
                     setShowSizeGuide(true);
                   }}
                 >
-                  📏 Size Guide
+                  Size Guide
                 </button>
               </div>
 
@@ -213,24 +182,62 @@ export default function App() {
                 className="order-btn"
                 onClick={() => openCheckoutModal(product)}
               >
-                Order on WhatsApp
+                Order via WhatsApp
               </button>
 
               <div className="card-perks">
-                <span>✓ Free Delivery</span>
-                <span>✓ COD Available</span>
+                <span>✦ COD Available</span>
+                <span>✦ Express Delivery</span>
               </div>
             </div>
           </div>
         ))}
       </main>
 
+      {/* Bottom Trust & Assurance Strip */}
+      <section className="trust-strip">
+        <div className="trust-item">
+          <div className="trust-icon-box">💵</div>
+          <div>
+            <h4>Cash on Delivery</h4>
+            <p>Pay conveniently at your doorstep</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon-box">🔄</div>
+          <div>
+            <h4>7-Day Exchange</h4>
+            <p>Seamless door-to-door replacements</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon-box">🚚</div>
+          <div>
+            <h4>Pan-India Express</h4>
+            <p>Dispatched with premier logistics</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon-box">✨</div>
+          <div>
+            <h4>Tailored Quality</h4>
+            <p>Premium 240+ GSM bio-washed fabrics</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="luxury-footer">
+        <div className="footer-logo">EVERYFIT</div>
+        <p>© 2026 EVERYFIT STUDIO. ALL RIGHTS RESERVED.</p>
+      </footer>
+
       {/* Size Guide Modal */}
       {showSizeGuide && (
         <div className="modal-overlay" onClick={() => setShowSizeGuide(false)}>
           <div className="modal-card size-guide-card" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>📏 Measurement Guide (Inches)</h2>
+              <h2>Measurement Guide</h2>
               <button className="close-btn" onClick={() => setShowSizeGuide(false)}>✕</button>
             </div>
 
@@ -239,13 +246,13 @@ export default function App() {
                 className={`guide-tab ${sizeGuideTab === 'Men' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Men')}
               >
-                Men's Oversized Tees & Hoodies
+                Men's Fit
               </button>
               <button 
                 className={`guide-tab ${sizeGuideTab === 'Women' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Women')}
               >
-                Women's Casual & Dresses
+                Women's Fit
               </button>
             </div>
 
@@ -274,7 +281,7 @@ export default function App() {
                   <thead>
                     <tr>
                       <th>Size</th>
-                      <th>Bust / Chest (in)</th>
+                      <th>Bust (in)</th>
                       <th>Waist (in)</th>
                       <th>Length (in)</th>
                     </tr>
@@ -290,9 +297,9 @@ export default function App() {
               </div>
             )}
 
-            <div className="size-guide-tip">
-              💡 <em>Tip: Streetwear fits loose and relaxed. Agar regular standard fit chahiye toh standard size se 1 size chhota order karein.</em>
-            </div>
+            <p className="size-guide-tip">
+              ✦ Streetwear cuts are relaxed. Choose your regular size for an oversized drop, or downsize for a tailored look.
+            </p>
           </div>
         </div>
       )}
@@ -302,13 +309,13 @@ export default function App() {
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h2>Delivery Address</h2>
+              <h2>Shipping Address</h2>
               <button className="close-btn" onClick={() => setSelectedProduct(null)}>✕</button>
             </div>
 
             <div className="order-summary-box">
               <p><strong>Item:</strong> {selectedProduct.name} (Size: {selectedSizes[selectedProduct.id]})</p>
-              <p><strong>Amount Payable:</strong> ₹{selectedProduct.price}</p>
+              <p><strong>Amount:</strong> ₹{selectedProduct.price}</p>
             </div>
 
             <form onSubmit={handleOrderSubmit} className="address-form">
@@ -324,7 +331,7 @@ export default function App() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Contact Mobile Number *"
+                  placeholder="Mobile Number *"
                   required
                   value={addressData.phone}
                   onChange={handleInputChange}
@@ -333,7 +340,7 @@ export default function App() {
 
               <textarea
                 name="address"
-                placeholder="Complete Address (House/Flat No., Street, Landmark) *"
+                placeholder="Full Street Address, House/Flat No., Landmark *"
                 required
                 rows="3"
                 value={addressData.address}
@@ -360,7 +367,7 @@ export default function App() {
               </div>
 
               <div className="payment-select">
-                <label>Payment Method:</label>
+                <label>Payment Method</label>
                 <select 
                   name="paymentMethod" 
                   value={addressData.paymentMethod}
@@ -372,7 +379,7 @@ export default function App() {
               </div>
 
               <button type="submit" className="confirm-order-btn">
-                Confirm & Send on WhatsApp
+                Confirm & Order via WhatsApp
               </button>
             </form>
           </div>
