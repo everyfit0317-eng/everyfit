@@ -49,7 +49,10 @@ const products = [
 export default function App() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedSizes, setSelectedSizes] = useState({});
-  const [selectedProduct, setSelectedProduct] = useState(null); // Checkout modal ke liye
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [sizeGuideTab, setSizeGuideTab] = useState('Men');
+
   const [addressData, setAddressData] = useState({
     name: '',
     phone: '',
@@ -86,7 +89,6 @@ export default function App() {
     e.preventDefault();
     const size = selectedSizes[selectedProduct.id];
 
-    // WhatsApp structured message
     const message = 
       `🛍️ *NEW ORDER - EVERYFIT STORE*\n` +
       `--------------------------------\n` +
@@ -116,6 +118,38 @@ export default function App() {
         <div className="brand-logo">EVERYFIT</div>
         <p className="tagline">Premium Streetwear & Everyday Essentials</p>
       </header>
+
+      {/* Trust Badges Bar */}
+      <section className="trust-strip">
+        <div className="trust-item">
+          <span className="trust-icon">💵</span>
+          <div>
+            <strong>Cash on Delivery</strong>
+            <p>Pay safely at doorstep</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <span className="trust-icon">🔄</span>
+          <div>
+            <strong>7-Day Easy Exchange</strong>
+            <p>Hassle-free size replacement</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <span className="trust-icon">🚚</span>
+          <div>
+            <strong>Pan-India Shipping</strong>
+            <p>Express 3-5 day delivery</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <span className="trust-icon">✨</span>
+          <div>
+            <strong>100% Bio-Washed</strong>
+            <p>Super combed 240+ GSM</p>
+          </div>
+        </div>
+      </section>
 
       {/* Category Filter */}
       <div className="category-bar">
@@ -148,20 +182,31 @@ export default function App() {
                 <span className="original-price">₹{product.originalPrice}</span>
               </div>
 
-              {/* Size Selector */}
-              <div className="size-selector">
+              {/* Size Selector with Size Guide Link */}
+              <div className="size-selector-header">
                 <span className="label">Select Size:</span>
-                <div className="size-buttons">
-                  {product.sizes.map(size => (
-                    <button
-                      key={size}
-                      className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
-                      onClick={() => handleSizeSelect(product.id, size)}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
+                <button 
+                  type="button" 
+                  className="size-guide-btn" 
+                  onClick={() => {
+                    setSizeGuideTab(product.category === 'Women' ? 'Women' : 'Men');
+                    setShowSizeGuide(true);
+                  }}
+                >
+                  📏 Size Guide
+                </button>
+              </div>
+
+              <div className="size-buttons">
+                {product.sizes.map(size => (
+                  <button
+                    key={size}
+                    className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
+                    onClick={() => handleSizeSelect(product.id, size)}
+                  >
+                    {size}
+                  </button>
+                ))}
               </div>
 
               <button 
@@ -170,10 +215,87 @@ export default function App() {
               >
                 Order on WhatsApp
               </button>
+
+              <div className="card-perks">
+                <span>✓ Free Delivery</span>
+                <span>✓ COD Available</span>
+              </div>
             </div>
           </div>
         ))}
       </main>
+
+      {/* Size Guide Modal */}
+      {showSizeGuide && (
+        <div className="modal-overlay" onClick={() => setShowSizeGuide(false)}>
+          <div className="modal-card size-guide-card" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>📏 Measurement Guide (Inches)</h2>
+              <button className="close-btn" onClick={() => setShowSizeGuide(false)}>✕</button>
+            </div>
+
+            <div className="guide-tabs">
+              <button 
+                className={`guide-tab ${sizeGuideTab === 'Men' ? 'active' : ''}`}
+                onClick={() => setSizeGuideTab('Men')}
+              >
+                Men's Oversized Tees & Hoodies
+              </button>
+              <button 
+                className={`guide-tab ${sizeGuideTab === 'Women' ? 'active' : ''}`}
+                onClick={() => setSizeGuideTab('Women')}
+              >
+                Women's Casual & Dresses
+              </button>
+            </div>
+
+            {sizeGuideTab === 'Men' ? (
+              <div className="table-responsive">
+                <table className="size-table">
+                  <thead>
+                    <tr>
+                      <th>Size</th>
+                      <th>Chest (in)</th>
+                      <th>Length (in)</th>
+                      <th>Shoulder (in)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><strong>S</strong></td><td>40"</td><td>28"</td><td>20"</td></tr>
+                    <tr><td><strong>M</strong></td><td>42"</td><td>29"</td><td>21"</td></tr>
+                    <tr><td><strong>L</strong></td><td>44"</td><td>30"</td><td>22"</td></tr>
+                    <tr><td><strong>XL</strong></td><td>46"</td><td>31"</td><td>23"</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <table className="size-table">
+                  <thead>
+                    <tr>
+                      <th>Size</th>
+                      <th>Bust / Chest (in)</th>
+                      <th>Waist (in)</th>
+                      <th>Length (in)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><strong>XS</strong></td><td>34"</td><td>26"</td><td>35"</td></tr>
+                    <tr><td><strong>S</strong></td><td>36"</td><td>28"</td><td>36"</td></tr>
+                    <tr><td><strong>M</strong></td><td>38"</td><td>30"</td><td>37"</td></tr>
+                    <tr><td><strong>L</strong></td><td>40"</td><td>32"</td><td>38"</td></tr>
+                    <tr><td><strong>XL</strong></td><td>42"</td><td>34"</td><td>39"</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <div className="size-guide-tip">
+              💡 <em>Tip: Streetwear fits loose and relaxed. Agar regular standard fit chahiye toh standard size se 1 size chhota order karein.</em>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Checkout Address Modal */}
       {selectedProduct && (
