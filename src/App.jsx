@@ -1,181 +1,261 @@
 import React, { useState } from 'react';
+import './App.css';
+
+const WHATSAPP_NUMBER = '917822012372';
 
 const products = [
   {
     id: 1,
-    name: 'Oversized Heavyweight T-Shirt',
+    name: 'Classic Oversized Cotton Tee',
     category: 'Men',
-    price: 899,
+    price: 799,
+    originalPrice: 1299,
     sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
+    description: '100% Premium Bio-washed 240 GSM Cotton.'
   },
   {
     id: 2,
-    name: 'Relaxed Fit Linen Shirt',
+    name: 'Minimalist Relaxed Hoodie',
     category: 'Men',
-    price: 1399,
+    price: 1499,
+    originalPrice: 2499,
     sizes: ['M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&auto=format&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
+    description: 'Heavyweight fleece fabric, drop shoulder fit.'
   },
   {
     id: 3,
-    name: 'Floral Casual  Dress',
+    name: 'Floral Casual Summer Dress',
     category: 'Women',
     price: 1499,
+    originalPrice: 2199,
     sizes: ['XS', 'S', 'M', 'L'],
-    image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80',
+    description: 'Breathable rayon fabric with elegant floral print.'
   },
   {
     id: 4,
     name: 'High-Waisted Wide-Leg Pants',
     category: 'Women',
     price: 1599,
+    originalPrice: 2299,
     sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80',
+    description: 'Comfortable stretch fit for all-day styling.'
   }
 ];
 
-// APNA WHATSAPP NUMBER YAHA DALEIN (Country code ke saath, bina '+' ya space ke, e.g. 919876543210)
-const WHATSAPP_NUMBER = '917822012372';
-
-function App() {
+export default function App() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedSizes, setSelectedSizes] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState(null); // Checkout modal ke liye
+  const [addressData, setAddressData] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    city: '',
+    pincode: '',
+    paymentMethod: 'Cash on Delivery (COD)'
+  });
+
+  const categories = ['All', 'Men', 'Women'];
+
+  const filteredProducts = activeCategory === 'All' 
+    ? products 
+    : products.filter(p => p.category === activeCategory);
 
   const handleSizeSelect = (productId, size) => {
     setSelectedSizes(prev => ({ ...prev, [productId]: size }));
   };
 
-  const handleWhatsAppOrder = (product) => {
-    const chosenSize = selectedSizes[product.id] || product.sizes[0];
-    const message = `Hi EVERYFIT, I want to order:\n\n👕 Item: ${product.name}\n📏 Size: ${chosenSize}\n💰 Price: ₹${product.price}\n\nPlease share payment and delivery details.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURI(message)}`, '_blank');
+  const openCheckoutModal = (product) => {
+    const chosenSize = selectedSizes[product.id];
+    if (!chosenSize) {
+      alert('Kripya pehle size select karein!');
+      return;
+    }
+    setSelectedProduct(product);
   };
 
-  const filteredProducts = activeCategory === 'All'
-    ? products
-    : products.filter(item => item.category === activeCategory);
+  const handleInputChange = (e) => {
+    setAddressData({ ...addressData, [e.target.name]: e.target.value });
+  };
+
+  const handleOrderSubmit = (e) => {
+    e.preventDefault();
+    const size = selectedSizes[selectedProduct.id];
+
+    // WhatsApp structured message
+    const message = 
+      `🛍️ *NEW ORDER - EVERYFIT STORE*\n` +
+      `--------------------------------\n` +
+      `*Product:* ${selectedProduct.name}\n` +
+      `*Size:* ${size}\n` +
+      `*Price:* ₹${selectedProduct.price}\n` +
+      `--------------------------------\n` +
+      `📍 *DELIVERY ADDRESS:*\n` +
+      `*Name:* ${addressData.name}\n` +
+      `*Contact:* ${addressData.phone}\n` +
+      `*Address:* ${addressData.address}\n` +
+      `*City:* ${addressData.city}\n` +
+      `*Pincode:* ${addressData.pincode}\n` +
+      `*Payment:* ${addressData.paymentMethod}\n` +
+      `--------------------------------\n` +
+      `Please confirm my order and share tracking details!`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setSelectedProduct(null);
+  };
 
   return (
-    <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', color: '#111', margin: 0, padding: 0 }}>
+    <div className="store-container">
       {/* Header */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '18px 30px',
-        borderBottom: '1px solid #eee',
-        position: 'sticky',
-        top: 0,
-        backgroundColor: '#fff',
-        zIndex: 100
-      }}>
-        <div style={{ fontSize: '22px', fontWeight: '900', letterSpacing: '2px' }}>EVERYFIT</div>
-        <div style={{ display: 'flex', gap: '16px' }}>
-          {['All', 'Men', 'Women'].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                background: 'none',
-                border: 'none',
-                fontSize: '14px',
-                cursor: 'pointer',
-                fontWeight: activeCategory === cat ? '700' : '500',
-                color: activeCategory === cat ? '#000' : '#777',
-                borderBottom: activeCategory === cat ? '2px solid #000' : '2px solid transparent',
-                paddingBottom: '4px'
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+      <header className="navbar">
+        <div className="brand-logo">EVERYFIT</div>
+        <p className="tagline">Premium Streetwear & Everyday Essentials</p>
       </header>
 
-      {/* Banner */}
-      <section style={{ textAlign: 'center', padding: '50px 20px', backgroundColor: '#f9f9f9', borderBottom: '1px solid #eee' }}>
-        <p style={{ letterSpacing: '3px', textTransform: 'uppercase', fontSize: '11px', color: '#666', marginBottom: '8px' }}>
-          Streetwear & Everyday Comfort
-        </p>
-        <h1 style={{ fontSize: '32px', margin: '0 0 12px', fontWeight: '800' }}>Fits Crafted for Movement</h1>
-        <p style={{ color: '#555', maxWidth: '450px', margin: '0 auto', fontSize: '14px' }}>
-          Exclusive men's and women's collections. Direct WhatsApp delivery.
-        </p>
-      </section>
+      {/* Category Filter */}
+      <div className="category-bar">
+        {categories.map(cat => (
+          <button 
+            key={cat} 
+            className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
+            onClick={() => setActiveCategory(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-      {/* Products */}
-      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '30px 20px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px' }}>{activeCategory} Collection</h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: '24px'
-        }}>
-          {filteredProducts.map((item) => {
-            const currentSize = selectedSizes[item.id] || item.sizes[0];
-            return (
-              <div key={item.id} style={{ border: '1px solid #eee', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                <img src={item.image} alt={item.name} style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
-                <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#888' }}>{item.category}</span>
-                  <h3 style={{ fontSize: '15px', fontWeight: '600', margin: '4px 0 8px' }}>{item.name}</h3>
-                  <div style={{ fontSize: '16px', fontWeight: '800', marginBottom: '12px' }}>₹{item.price}</div>
-                  
-                  {/* Size Selector */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '12px', color: '#555', marginBottom: '6px' }}>Select Size:</div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      {item.sizes.map((sz) => (
-                        <button
-                          key={sz}
-                          onClick={() => handleSizeSelect(item.id, sz)}
-                          style={{
-                            padding: '6px 12px',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            border: currentSize === sz ? '1.5px solid #000' : '1px solid #ddd',
-                            backgroundColor: currentSize === sz ? '#000' : '#fff',
-                            color: currentSize === sz ? '#fff' : '#000'
-                          }}
-                        >
-                          {sz}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+      {/* Product Grid */}
+      <main className="product-grid">
+        {filteredProducts.map(product => (
+          <div key={product.id} className="product-card">
+            <div className="image-wrapper">
+              <img src={product.image} alt={product.name} />
+              <span className="badge">{product.category}</span>
+            </div>
+            
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p className="description">{product.description}</p>
+              
+              <div className="pricing">
+                <span className="price">₹{product.price}</span>
+                <span className="original-price">₹{product.originalPrice}</span>
+              </div>
 
-                  {/* Order Button */}
-                  <button
-                    onClick={() => handleWhatsAppOrder(item)}
-                    style={{
-                      marginTop: 'auto',
-                      backgroundColor: '#25D366',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '10px',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontWeight: '700',
-                      fontSize: '14px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '8px'
-                    }}
-                  >
-                    💬 Order on WhatsApp
-                  </button>
+              {/* Size Selector */}
+              <div className="size-selector">
+                <span className="label">Select Size:</span>
+                <div className="size-buttons">
+                  {product.sizes.map(size => (
+                    <button
+                      key={size}
+                      className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
+                      onClick={() => handleSizeSelect(product.id, size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
                 </div>
               </div>
-            );
-          })}
-        </div>
+
+              <button 
+                className="order-btn"
+                onClick={() => openCheckoutModal(product)}
+              >
+                Order on WhatsApp
+              </button>
+            </div>
+          </div>
+        ))}
       </main>
+
+      {/* Checkout Address Modal */}
+      {selectedProduct && (
+        <div className="modal-overlay">
+          <div className="modal-card">
+            <div className="modal-header">
+              <h2>Delivery Address</h2>
+              <button className="close-btn" onClick={() => setSelectedProduct(null)}>✕</button>
+            </div>
+
+            <div className="order-summary-box">
+              <p><strong>Item:</strong> {selectedProduct.name} (Size: {selectedSizes[selectedProduct.id]})</p>
+              <p><strong>Amount Payable:</strong> ₹{selectedProduct.price}</p>
+            </div>
+
+            <form onSubmit={handleOrderSubmit} className="address-form">
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name *"
+                  required
+                  value={addressData.name}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Contact Mobile Number *"
+                  required
+                  value={addressData.phone}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <textarea
+                name="address"
+                placeholder="Complete Address (House/Flat No., Street, Landmark) *"
+                required
+                rows="3"
+                value={addressData.address}
+                onChange={handleInputChange}
+              />
+
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City *"
+                  required
+                  value={addressData.city}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="pincode"
+                  placeholder="Pincode *"
+                  required
+                  value={addressData.pincode}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="payment-select">
+                <label>Payment Method:</label>
+                <select 
+                  name="paymentMethod" 
+                  value={addressData.paymentMethod}
+                  onChange={handleInputChange}
+                >
+                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                  <option value="UPI / Online on Delivery">UPI / Online on Delivery</option>
+                </select>
+              </div>
+
+              <button type="submit" className="confirm-order-btn">
+                Confirm & Send on WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-export default App;
