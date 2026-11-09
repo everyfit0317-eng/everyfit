@@ -4,15 +4,37 @@ import './App.css';
 const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
-  { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=80' },
+  { id: 'All', name: 'All Drops', image: '/jewel1.jpg.jpeg' },
+  { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg.jpeg' },
   { id: 'Tees', name: 'Oversized Tees', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80' },
-  { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' },
-  { id: 'Women', name: "Women's Edit", image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&auto=format&fit=crop&q=80' }
+  { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' }
 ];
 
 const products = [
   {
     id: 1,
+    name: '12mm Heavyweight Cuban Link Chain',
+    category: 'Jewellery',
+    gender: 'Unisex',
+    price: 999,
+    originalPrice: 1999,
+    sizes: ['18 inch', '20 inch', '22 inch'],
+    image: '/jewel1.jpg.jpeg',
+    description: '316L Stainless Steel, Anti-tarnish & waterproof. High-polish luxury mirror shine.'
+  },
+  {
+    id: 2,
+    name: 'Minimalist Signature Signet Ring',
+    category: 'Jewellery',
+    gender: 'Unisex',
+    price: 699,
+    originalPrice: 1299,
+    sizes: ['Size 7', 'Size 8', 'Size 9'],
+    image: '/jewel2.jpg.jpeg',
+    description: '18K Gold PVD plating over surgical steel. Sweatproof and hypoallergenic.'
+  },
+  {
+    id: 3,
     name: 'Classic 240 GSM Oversized Tee',
     category: 'Tees',
     gender: 'Men',
@@ -21,41 +43,9 @@ const products = [
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
     description: '100% Super-combed Bio-washed Cotton. Tailored drop-shoulder silhouette.'
-  },
-  {
-    id: 2,
-    name: 'Minimalist Relaxed Heavyweight Hoodie',
-    category: 'Hoodies',
-    gender: 'Men',
-    price: 1499,
-    originalPrice: 2499,
-    sizes: ['M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
-    description: '380 GSM fleece-lined French Terry. Anti-pilling soft finish.'
-  },
-  {
-    id: 3,
-    name: 'Signature Floral Linen-Blend Dress',
-    category: 'Women',
-    gender: 'Women',
-    price: 1499,
-    originalPrice: 2199,
-    sizes: ['XS', 'S', 'M', 'L'],
-    image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80',
-    description: 'Ultra-lightweight breathable rayon blend with flattering contour lines.'
-  },
-  {
-    id: 4,
-    name: 'High-Waisted Tailored Wide Leg Trousers',
-    category: 'Women',
-    gender: 'Women',
-    price: 1599,
-    originalPrice: 2299,
-    sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80',
-    description: 'Structured draping with comfortable stretch waistband for elevated street style.'
   }
 ];
+    
 
 const reviews = [
   {
