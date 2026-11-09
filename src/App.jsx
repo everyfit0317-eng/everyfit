@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { products } from './data/products';
 import './App.css';
 
 const WHATSAPP_NUMBER = '917822012372';
@@ -10,74 +11,7 @@ const categoriesList = [
   { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' }
 ];
 
-const products = [
-  {
-    id: 1,
-    name: '12mm Heavyweight Cuban Link Chain',
-    category: 'Jewellery',
-    gender: 'Unisex',
-    price: 999,
-    originalPrice: 1999,
-    sizes: ['18 inch', '20 inch', '22 inch'],
-    image: '/jewel1.jpg.jpeg',
-    description: '316L Stainless Steel, Anti-tarnish & waterproof. High-polish luxury mirror shine.'
-  },
-  {
-    id: 2,
-    name: 'Minimalist Signature Signet Ring',
-    category: 'Jewellery',
-    gender: 'Unisex',
-    price: 699,
-    originalPrice: 1299,
-    sizes: ['Size 7', 'Size 8', 'Size 9'],
-    image: '/jewel2.jpg.jpeg',
-    description: '18K Gold PVD plating over surgical steel. Sweatproof and hypoallergenic.'
-  },
-  {
-    id: 3,
-    name: '8mm Miami Curb Link Bracelet',
-    category: 'Jewellery',
-    gender: 'Unisex',
-    price: 799,
-    originalPrice: 1499,
-    sizes: ['Free Size (Adjustable)'],
-    image: 'https://images.unsplash.com/photo-1611591475155-4284ec289e0d?w=600&auto=format&fit=crop&q=80',
-    description: 'Precision beveled edges, reinforced lobster lock. Anti-fade surgical steel.'
-  },
-  {
-    id: 4,
-    name: 'Classic 240 GSM Oversized Tee',
-    category: 'Tees',
-    gender: 'Men',
-    price: 799,
-    originalPrice: 1299,
-    sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
-    description: '100% Super-combed Bio-washed Cotton. Tailored drop-shoulder silhouette.'
-  },
-  {
-    id: 5,
-    name: 'Acid Wash Heavyweight Boxy Tee',
-    category: 'Tees',
-    gender: 'Men',
-    price: 899,
-    originalPrice: 1499,
-    sizes: ['S', 'M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&auto=format&fit=crop&q=80',
-    description: '240 GSM vintage mineral wash finish with thick ribbed collar.'
-  },
-  {
-    id: 6,
-    name: 'Minimalist Relaxed Heavyweight Hoodie',
-    category: 'Hoodies',
-    gender: 'Men',
-    price: 1499,
-    originalPrice: 2499,
-    sizes: ['M', 'L', 'XL'],
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
-    description: '380 GSM fleece-lined French Terry. Anti-pilling soft luxury finish.'
-  }
-];
+
 
 const reviews = [
   {
