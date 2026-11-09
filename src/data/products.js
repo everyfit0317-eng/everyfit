@@ -164,7 +164,7 @@ export const products = [
     name: "Ayat-ul-kursi Engraved Bracelet",
     category: "Jewellery",
     price: 299,
-    originalPrice: 299,
+    originalPrice: 599,
     sizes: ["Free size"],
     image: "/jewel18.jpg",
     description: "Sacred calligraphy embossed gold cuff bracelet."
