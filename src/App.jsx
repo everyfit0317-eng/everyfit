@@ -92,7 +92,7 @@ export default function App() {
     const size = selectedSizes[selectedProduct.id];
 
     const message =
-      `🛍️ *NEW ORDER - EVERYFIT STUDIO*\n` +
+      `🛍️ *NEW ORDER - EVERYFIT STORE*\n` +
       `--------------------------------\n` +
       `*Product:* ${selectedProduct.name}\n` +
       `*Size / Option:* ${size}\n` +
@@ -374,7 +374,7 @@ export default function App() {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 EVERYFIT STUDIO. ALL RIGHTS RESERVED. CRAFTED WITH PASSION.</p>
+          <p>© 2026 EVERYFIT STORE. ALL RIGHTS RESERVED. CRAFTED WITH PASSION.</p>
         </div>
       </footer>
 
