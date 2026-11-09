@@ -5,10 +5,10 @@ import './App.css';
 const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
-  { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=80' },
+  { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80' },
   { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg' },
-  { id: 'Tees', name: 'Oversized Tees', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80' },
-  { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' }
+  { id: 'Watches', name: 'Classic Watches', image: '/jewel19.jpg' },
+  { id: 'BestSellers', name: 'Statement Pieces', image: '/jewel11.jpg' }
 ];
 
 
@@ -141,11 +141,11 @@ export default function App() {
       <section className="hero-section">
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <span className="hero-tag">EDITION 2026 // STREETWEAR &amp; JEWELLERY</span>
-          <h1 className="hero-title">FASHION FOR EVERYBODY</h1>
-          <p className="hero-subtitle">
-            Engineered silhouettes and anti-tarnish waterproof stainless steel jewellery designed for everyday luxury.
-          </p>
+          <span className="hero-tag">EDITION 2026 // TIMELESS LUXURY</span>
+<h1 className="hero-title">CURATED EVERYDAY LUXURY</h1>
+<p className="hero-subtitle">
+  Premium anti-tarnish waterproof jewellery &amp; classic timepieces designed for modern silhouettes.
+</p>
           <div className="hero-buttons">
             <a href="#drops" className="hero-primary-btn">EXPLORE DROPS</a>
             <a href="#craft" className="hero-secondary-btn">OUR CRAFT</a>
