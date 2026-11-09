@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 const WHATSAPP_NUMBER = '917822012372';
@@ -219,7 +219,7 @@ export default function App() {
                 <img src={cat.image} alt={cat.name} />
               </div>
               <h3 className="category-tile-name">{cat.name}</h3>
-              <span className="category-tile-link">View Collection →</span>
+              <span className="category-tile-link">View Collection &rarr;</span>
             </div>
           ))}
         </div>
@@ -352,7 +352,7 @@ export default function App() {
           {reviews.map(item => (
             <div key={item.id} className="review-card">
               <div className="review-stars">{item.rating}</div>
-              <p className="review-comment">"{item.comment}"</p>
+              <p className="review-comment">&ldquo;{item.comment}&rdquo;</p>
               <div className="review-author">
                 <strong>{item.name}</strong>
                 <span>Verified Buyer • {item.city}</span>
@@ -410,10 +410,10 @@ export default function App() {
           </div>
 
           <div className="footer-column">
-            <h4>Concierge & Support</h4>
+            <h4>Concierge &amp; Support</h4>
             <p>WhatsApp: +91 78220 12372</p>
             <p>Hours: Mon - Sat (10 AM - 8 PM)</p>
-            <p>COD & Pan-India Deliveries</p>
+            <p>COD &amp; Pan-India Deliveries</p>
           </div>
         </div>
 
@@ -436,13 +436,13 @@ export default function App() {
                 className={`guide-tab ${sizeGuideTab === 'Men' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Men')}
               >
-                Men's Oversized Fit
+                Men&apos;s Oversized Fit
               </button>
               <button
                 className={`guide-tab ${sizeGuideTab === 'Women' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Women')}
               >
-                Women's Fit
+                Women&apos;s Fit
               </button>
             </div>
 
@@ -535,3 +535,46 @@ export default function App() {
                 rows="3"
                 value={addressData.address}
                 onChange={handleInputChange}
+              />
+
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City *"
+                  required
+                  value={addressData.city}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="pincode"
+                  placeholder="6-Digit Pincode *"
+                  required
+                  value={addressData.pincode}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="payment-select">
+                <label>Payment Mode</label>
+                <select
+                  name="paymentMethod"
+                  value={addressData.paymentMethod}
+                  onChange={handleInputChange}
+                >
+                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                  <option value="UPI / Online on Delivery">UPI / Online on Delivery</option>
+                </select>
+              </div>
+
+              <button type="submit" className="confirm-order-btn">
+                Confirm & Order on WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
