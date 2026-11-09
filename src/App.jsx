@@ -116,10 +116,10 @@ export default function App() {
       {/* Luxury Minimal Header */}
       <header className="navbar">
         <div className="top-banner">Complimentary Pan-India Express Delivery on All Orders</div>
-        <div className="brand-logo">EVERYFIT</div>
-        <p className="tagline">MODERN STREETWEAR & ESSENTIALS</p>
+        <div className="logo-container">
+          <img src="/logo.png" alt="Everyfit Logo" className="brand-logo-img" />
+        </div>
       </header>
-
       {/* Category Navigation */}
       <nav className="category-bar">
         {categories.map(cat => (

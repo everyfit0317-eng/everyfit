@@ -38,7 +38,31 @@ body {
   top: 0;
   z-index: 100;
 }
+/* Logo Styling */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0 12px;
+}
 
+.brand-logo-img {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.03);
+}
+
+.footer-logo-img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
 .top-banner {
   background: var(--primary-black);
   color: var(--bg-blush-light);
