@@ -365,10 +365,11 @@ export default function App() {
           </div>
 
           <div className="footer-column">
-            <h4>Concierge &amp; Support</h4>
-            <p>WhatsApp: +91 78220 12372</p>
-            <p>Hours: Mon - Sat (10 AM - 8 PM)</p>
-            <p>COD &amp; Pan-India Deliveries</p>
+           <h4>Concierge &amp; Support</h4>
+<p>WhatsApp: +91 78220 12372</p>
+<p>Email: <a href="mailto:everyfit0317@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>everyfit0317@gmail.com</a></p>
+<p>Hours: Mon - Sat (10 AM - 8 PM)</p>
+<p>COD &amp; Pan-India Deliveries</p>
           </div>
         </div>
 
