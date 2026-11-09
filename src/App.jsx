@@ -3,46 +3,81 @@ import './App.css';
 
 const WHATSAPP_NUMBER = '917822012372';
 
+const categoriesList = [
+  { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=80' },
+  { id: 'Tees', name: 'Oversized Tees', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80' },
+  { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' },
+  { id: 'Women', name: "Women's Edit", image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&auto=format&fit=crop&q=80' }
+];
+
 const products = [
   {
     id: 1,
-    name: 'Classic Oversized Cotton Tee',
-    category: 'Men',
+    name: 'Classic 240 GSM Oversized Tee',
+    category: 'Tees',
+    gender: 'Men',
     price: 799,
     originalPrice: 1299,
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
-    description: '100% Bio-washed heavy 240 GSM combed cotton.'
+    description: '100% Super-combed Bio-washed Cotton. Tailored drop-shoulder silhouette.'
   },
   {
     id: 2,
-    name: 'Minimalist Relaxed Hoodie',
-    category: 'Men',
+    name: 'Minimalist Relaxed Heavyweight Hoodie',
+    category: 'Hoodies',
+    gender: 'Men',
     price: 1499,
     originalPrice: 2499,
     sizes: ['M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
-    description: 'Premium heavyweight fleece fabric, tailored drop shoulder fit.'
+    description: '380 GSM fleece-lined French Terry. Anti-pilling soft finish.'
   },
   {
     id: 3,
-    name: 'Floral Casual Summer Dress',
+    name: 'Signature Floral Linen-Blend Dress',
     category: 'Women',
+    gender: 'Women',
     price: 1499,
     originalPrice: 2199,
     sizes: ['XS', 'S', 'M', 'L'],
     image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&auto=format&fit=crop&q=80',
-    description: 'Ultra-lightweight breathable rayon with signature chic print.'
+    description: 'Ultra-lightweight breathable rayon blend with flattering contour lines.'
   },
   {
     id: 4,
-    name: 'High-Waisted Wide-Leg Pants',
+    name: 'High-Waisted Tailored Wide Leg Trousers',
     category: 'Women',
+    gender: 'Women',
     price: 1599,
     originalPrice: 2299,
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80',
-    description: 'Structured silhouette designed for modern elevated styling.'
+    description: 'Structured draping with comfortable stretch waistband for elevated street style.'
+  }
+];
+
+const reviews = [
+  {
+    id: 1,
+    name: 'Arman K.',
+    city: 'Mumbai',
+    rating: '★★★★★',
+    comment: 'Fabric weight is top notch. Genuine 240 GSM drop shoulder fit — feels like high-end luxury streetwear.'
+  },
+  {
+    id: 2,
+    name: 'Sneha R.',
+    city: 'Delhi',
+    rating: '★★★★★',
+    comment: 'The stitching and color precision are outstanding. WhatsApp confirmation was super fast and COD was seamless!'
+  },
+  {
+    id: 3,
+    name: 'Rohan M.',
+    city: 'Bengaluru',
+    rating: '★★★★★',
+    comment: 'Best oversized tee under ₹1000 in India right now. No color bleed after wash.'
   }
 ];
 
@@ -62,11 +97,9 @@ export default function App() {
     paymentMethod: 'Cash on Delivery (COD)'
   });
 
-  const categories = ['All', 'Men', 'Women'];
-
-  const filteredProducts = activeCategory === 'All' 
-    ? products 
-    : products.filter(p => p.category === activeCategory);
+  const filteredProducts = activeCategory === 'All'
+    ? products
+    : products.filter(p => p.category === activeCategory || p.gender === activeCategory);
 
   const handleSizeSelect = (productId, size) => {
     setSelectedSizes(prev => ({ ...prev, [productId]: size }));
@@ -75,7 +108,7 @@ export default function App() {
   const openCheckoutModal = (product) => {
     const chosenSize = selectedSizes[product.id];
     if (!chosenSize) {
-      alert('Kripya pehle apna size select karein!');
+      alert('Kripya pehle size select karein!');
       return;
     }
     setSelectedProduct(product);
@@ -87,9 +120,22 @@ export default function App() {
 
   const handleOrderSubmit = (e) => {
     e.preventDefault();
+
+    const phoneClean = addressData.phone.replace(/[^0-9]/g, '');
+    if (phoneClean.length !== 10) {
+      alert('Kripya sahi 10-digit mobile number enter karein!');
+      return;
+    }
+
+    const pinClean = addressData.pincode.replace(/[^0-9]/g, '');
+    if (pinClean.length !== 6) {
+      alert('Kripya valid 6-digit Pincode dalein!');
+      return;
+    }
+
     const size = selectedSizes[selectedProduct.id];
 
-    const message = 
+    const message =
       `🛍️ *NEW ORDER - EVERYFIT STUDIO*\n` +
       `--------------------------------\n` +
       `*Product:* ${selectedProduct.name}\n` +
@@ -97,14 +143,14 @@ export default function App() {
       `*Price:* ₹${selectedProduct.price}\n` +
       `--------------------------------\n` +
       `📍 *DELIVERY DETAILS:*\n` +
-      `*Name:* ${addressData.name}\n` +
-      `*Mobile:* ${addressData.phone}\n` +
-      `*Address:* ${addressData.address}\n` +
-      `*City:* ${addressData.city}\n` +
-      `*Pincode:* ${addressData.pincode}\n` +
+      `*Name:* ${addressData.name.trim()}\n` +
+      `*Mobile:* ${phoneClean}\n` +
+      `*Address:* ${addressData.address.trim()}\n` +
+      `*City:* ${addressData.city.trim()}\n` +
+      `*Pincode:* ${pinClean}\n` +
       `*Payment:* ${addressData.paymentMethod}\n` +
       `--------------------------------\n` +
-      `Please confirm my order & share invoice copy!`;
+      `Please confirm my order and share invoice/tracking details!`;
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -113,126 +159,270 @@ export default function App() {
 
   return (
     <div className="store-container">
-      {/* Luxury Minimal Header */}
+      {/* 1. TOP ANNOUNCEMENT BAR & NAVBAR */}
       <header className="navbar">
-        <div className="top-banner">Complimentary Pan-India Express Delivery on All Orders</div>
-        <div className="logo-container">
-          <img src="/logo.png" alt="Everyfit Logo" className="brand-logo-img" />
+        <div className="top-banner">Complimentary Pan-India Shipping on All Pre-Orders ✦ COD Available</div>
+        <div className="nav-wrapper">
+          <div className="nav-links desktop-only">
+            <a href="#categories">Collections</a>
+            <a href="#drops">New Drops</a>
+            <a href="#craft">The Craft</a>
+          </div>
+
+          <div className="logo-container">
+            <img src="/logo.png" alt="Everyfit Logo" className="brand-logo-img" />
+          </div>
+
+          <div className="nav-actions">
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="nav-help-btn">
+              💬 WhatsApp Concierge
+            </a>
+          </div>
         </div>
       </header>
-      {/* Category Navigation */}
-      <nav className="category-bar">
-        {categories.map(cat => (
-          <button 
-            key={cat} 
-            className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
-            onClick={() => setActiveCategory(cat)}
-          >
-            {cat}
-          </button>
-        ))}
-      </nav>
 
-      {/* Product Showcase */}
-      <main className="product-grid">
-        {filteredProducts.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="image-wrapper">
-              <img src={product.image} alt={product.name} />
-              <span className="badge">{product.category}</span>
+      {/* 2. HIGH-IMPACT HERO BANNER SECTION */}
+      <section className="hero-section">
+        <div className="hero-overlay"></div>
+        <div className="hero-content">
+          <span className="hero-tag">EDITION 2026 // STREETWEAR COUTURE</span>
+          <h1 className="hero-title">FASHION FOR EVERYBODY</h1>
+          <p className="hero-subtitle">
+            Engineered silhouettes with heavyweight bio-washed fabrics. Designed for everyday luxury and effortless street drape.
+          </p>
+          <div className="hero-buttons">
+            <a href="#drops" className="hero-primary-btn">EXPLORE DROPS</a>
+            <a href="#craft" className="hero-secondary-btn">OUR CRAFT</a>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SHOP BY CATEGORY SECTION */}
+      <section className="section-container" id="categories">
+        <div className="section-header">
+          <span className="section-eyebrow">CURATED COLLECTIONS</span>
+          <h2 className="section-title">Shop by Category</h2>
+          <div className="section-divider"></div>
+        </div>
+
+        <div className="category-tiles-grid">
+          {categoriesList.map(cat => (
+            <div
+              key={cat.id}
+              className={`category-tile ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => {
+                setActiveCategory(cat.id);
+                document.getElementById('drops')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <div className="category-tile-img-wrap">
+                <img src={cat.image} alt={cat.name} />
+              </div>
+              <h3 className="category-tile-name">{cat.name}</h3>
+              <span className="category-tile-link">View Collection →</span>
             </div>
-            
-            <div className="product-info">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="description">{product.description}</p>
-              
-              <div className="pricing">
-                <span className="price">₹{product.price}</span>
-                <span className="original-price">₹{product.originalPrice}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. TRENDING PRODUCTS GRID */}
+      <section className="section-container" id="drops">
+        <div className="section-header">
+          <span className="section-eyebrow">LATEST ARRIVALS</span>
+          <h2 className="section-title">Trending Drops</h2>
+          <div className="section-divider"></div>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="filter-pill-bar">
+          {categoriesList.map(cat => (
+            <button
+              key={cat.id}
+              className={`filter-pill ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Product Cards */}
+        <div className="product-grid">
+          {filteredProducts.map(product => (
+            <div key={product.id} className="product-card">
+              <div className="image-wrapper">
+                <img src={product.image} alt={product.name} />
+                <span className="badge">{product.category}</span>
               </div>
 
-              {/* Size Selector */}
-              <div className="size-selector-header">
-                <span className="size-label">Select Size</span>
-                <button 
-                  type="button" 
-                  className="size-guide-link" 
-                  onClick={() => {
-                    setSizeGuideTab(product.category === 'Women' ? 'Women' : 'Men');
-                    setShowSizeGuide(true);
-                  }}
-                >
-                  Size Guide
-                </button>
-              </div>
+              <div className="product-info">
+                <h3 className="product-name">{product.name}</h3>
+                <p className="description">{product.description}</p>
 
-              <div className="size-buttons">
-                {product.sizes.map(size => (
+                <div className="pricing">
+                  <span className="price">₹{product.price}</span>
+                  <span className="original-price">₹{product.originalPrice}</span>
+                  <span className="discount-tag">Save ₹{product.originalPrice - product.price}</span>
+                </div>
+
+                {/* Size Selector */}
+                <div className="size-selector-header">
+                  <span className="size-label">Select Size</span>
                   <button
-                    key={size}
-                    className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
-                    onClick={() => handleSizeSelect(product.id, size)}
+                    type="button"
+                    className="size-guide-link"
+                    onClick={() => {
+                      setSizeGuideTab(product.gender === 'Women' ? 'Women' : 'Men');
+                      setShowSizeGuide(true);
+                    }}
                   >
-                    {size}
+                    📏 Size Guide
                   </button>
-                ))}
+                </div>
+
+                <div className="size-buttons">
+                  {product.sizes.map(size => (
+                    <button
+                      key={size}
+                      className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
+                      onClick={() => handleSizeSelect(product.id, size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  className="order-btn"
+                  onClick={() => openCheckoutModal(product)}
+                >
+                  Order via WhatsApp
+                </button>
+
+                <div className="card-perks">
+                  <span>✦ 100% Cotton</span>
+                  <span>✦ Cash on Delivery</span>
+                </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-              <button 
-                className="order-btn"
-                onClick={() => openCheckoutModal(product)}
-              >
-                Order via WhatsApp
-              </button>
+      {/* 5. THE CRAFT & FABRIC DETAILS */}
+      <section className="section-container craft-section" id="craft">
+        <div className="craft-card">
+          <div className="craft-text">
+            <span className="section-eyebrow">THE EVERYFIT PHILOSOPHY</span>
+            <h2 className="section-title">Engineered For Longevity</h2>
+            <p className="craft-desc">
+              Har fabric ko thoughtfully source kiya gaya hai taaki har wash ke baad fit crisp aur fresh rahe. Premium drop shoulder cuts, zero shrinkage aur rich luxury hand-feel.
+            </p>
 
-              <div className="card-perks">
-                <span>✦ COD Available</span>
-                <span>✦ Express Delivery</span>
+            <div className="craft-features">
+              <div className="craft-feature-item">
+                <span className="feature-num">240+</span>
+                <strong>Heavyweight GSM</strong>
+                <p>Dense knit fabric that keeps its shape without sagging.</p>
+              </div>
+              <div className="craft-feature-item">
+                <span className="feature-num">100%</span>
+                <strong>Super-Combed Cotton</strong>
+                <p>Micro-fibers treated with bio-wash for a cashmere-soft touch.</p>
+              </div>
+              <div className="craft-feature-item">
+                <span className="feature-num">0%</span>
+                <strong>Color Fade / Shrink</strong>
+                <p>Reactive dye technology tested for long-lasting vibrancy.</p>
               </div>
             </div>
           </div>
-        ))}
-      </main>
+        </div>
+      </section>
 
-      {/* Bottom Trust & Assurance Strip */}
+      {/* 6. SOCIAL PROOF & REVIEWS */}
+      <section className="section-container reviews-section">
+        <div className="section-header">
+          <span className="section-eyebrow">COMMUNITY VOICES</span>
+          <h2 className="section-title">Loved by Everyfit Fam</h2>
+          <div className="section-divider"></div>
+        </div>
+
+        <div className="reviews-grid">
+          {reviews.map(item => (
+            <div key={item.id} className="review-card">
+              <div className="review-stars">{item.rating}</div>
+              <p className="review-comment">"{item.comment}"</p>
+              <div className="review-author">
+                <strong>{item.name}</strong>
+                <span>Verified Buyer • {item.city}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7. TRUST BADGES STRIP */}
       <section className="trust-strip">
         <div className="trust-item">
           <div className="trust-icon-box">💵</div>
           <div>
             <h4>Cash on Delivery</h4>
-            <p>Pay conveniently at your doorstep</p>
+            <p>Pay verified at your doorstep</p>
           </div>
         </div>
         <div className="trust-item">
           <div className="trust-icon-box">🔄</div>
           <div>
-            <h4>7-Day Exchange</h4>
-            <p>Seamless door-to-door replacements</p>
+            <h4>7-Day Free Exchange</h4>
+            <p>Doorstep size replacements</p>
           </div>
         </div>
         <div className="trust-item">
           <div className="trust-icon-box">🚚</div>
           <div>
             <h4>Pan-India Express</h4>
-            <p>Dispatched with premier logistics</p>
+            <p>Dispatched in 24 hours</p>
           </div>
         </div>
         <div className="trust-item">
           <div className="trust-icon-box">✨</div>
           <div>
-            <h4>Tailored Quality</h4>
-            <p>Premium 240+ GSM bio-washed fabrics</p>
+            <h4>Couture Streetwear</h4>
+            <p>Bio-washed luxury essentials</p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* 8. LUXURY FOOTER */}
       <footer className="luxury-footer">
-        <div className="footer-logo">EVERYFIT</div>
-        <p>© 2026 EVERYFIT STUDIO. ALL RIGHTS RESERVED.</p>
+        <div className="footer-top">
+          <div className="footer-brand">
+            <img src="/logo.png" alt="Everyfit Logo" className="footer-logo-img" />
+            <p>Modern Streetwear and Everyday Couture built for every silhouette.</p>
+          </div>
+
+          <div className="footer-column">
+            <h4>Quick Links</h4>
+            <a href="#drops">New Drops</a>
+            <a href="#categories">Collections</a>
+            <a href="#craft">The Craft</a>
+          </div>
+
+          <div className="footer-column">
+            <h4>Concierge & Support</h4>
+            <p>WhatsApp: +91 78220 12372</p>
+            <p>Hours: Mon - Sat (10 AM - 8 PM)</p>
+            <p>COD & Pan-India Deliveries</p>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© 2026 EVERYFIT STUDIO. ALL RIGHTS RESERVED. CRAFTED WITH PASSION.</p>
+        </div>
       </footer>
 
-      {/* Size Guide Modal */}
+      {/* SIZE GUIDE MODAL */}
       {showSizeGuide && (
         <div className="modal-overlay" onClick={() => setShowSizeGuide(false)}>
           <div className="modal-card size-guide-card" onClick={e => e.stopPropagation()}>
@@ -242,13 +432,13 @@ export default function App() {
             </div>
 
             <div className="guide-tabs">
-              <button 
+              <button
                 className={`guide-tab ${sizeGuideTab === 'Men' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Men')}
               >
-                Men's Fit
+                Men's Oversized Fit
               </button>
-              <button 
+              <button
                 className={`guide-tab ${sizeGuideTab === 'Women' ? 'active' : ''}`}
                 onClick={() => setSizeGuideTab('Women')}
               >
@@ -304,18 +494,18 @@ export default function App() {
         </div>
       )}
 
-      {/* Checkout Address Modal */}
+      {/* CHECKOUT ADDRESS MODAL */}
       {selectedProduct && (
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h2>Shipping Address</h2>
+              <h2>Complete Your Order</h2>
               <button className="close-btn" onClick={() => setSelectedProduct(null)}>✕</button>
             </div>
 
             <div className="order-summary-box">
               <p><strong>Item:</strong> {selectedProduct.name} (Size: {selectedSizes[selectedProduct.id]})</p>
-              <p><strong>Amount:</strong> ₹{selectedProduct.price}</p>
+              <p><strong>Amount:</strong> ₹{selectedProduct.price} (Free Shipping)</p>
             </div>
 
             <form onSubmit={handleOrderSubmit} className="address-form">
@@ -331,7 +521,7 @@ export default function App() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Mobile Number *"
+                  placeholder="10-Digit Mobile Number *"
                   required
                   value={addressData.phone}
                   onChange={handleInputChange}
@@ -340,51 +530,8 @@ export default function App() {
 
               <textarea
                 name="address"
-                placeholder="Full Street Address, House/Flat No., Landmark *"
+                placeholder="Complete Address (House/Flat No., Street, Landmark) *"
                 required
                 rows="3"
                 value={addressData.address}
                 onChange={handleInputChange}
-              />
-
-              <div className="input-row">
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City *"
-                  required
-                  value={addressData.city}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="pincode"
-                  placeholder="Pincode *"
-                  required
-                  value={addressData.pincode}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="payment-select">
-                <label>Payment Method</label>
-                <select 
-                  name="paymentMethod" 
-                  value={addressData.paymentMethod}
-                  onChange={handleInputChange}
-                >
-                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
-                  <option value="UPI / Online on Delivery">UPI / Online on Delivery</option>
-                </select>
-              </div>
-
-              <button type="submit" className="confirm-order-btn">
-                Confirm & Order via WhatsApp
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
