@@ -4,7 +4,7 @@ import './App.css';
 const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
-  { id: 'All', name: 'All Drops', image: '/jewel1.jpg.jpeg' },
+  { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=80' },
   { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg.jpeg' },
   { id: 'Tees', name: 'Oversized Tees', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80' },
   { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' }
@@ -35,6 +35,17 @@ const products = [
   },
   {
     id: 3,
+    name: '8mm Miami Curb Link Bracelet',
+    category: 'Jewellery',
+    gender: 'Unisex',
+    price: 799,
+    originalPrice: 1499,
+    sizes: ['Free Size (Adjustable)'],
+    image: 'https://images.unsplash.com/photo-1611591475155-4284ec289e0d?w=600&auto=format&fit=crop&q=80',
+    description: 'Precision beveled edges, reinforced lobster lock. Anti-fade surgical steel.'
+  },
+  {
+    id: 4,
     name: 'Classic 240 GSM Oversized Tee',
     category: 'Tees',
     gender: 'Men',
@@ -43,9 +54,30 @@ const products = [
     sizes: ['S', 'M', 'L', 'XL'],
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
     description: '100% Super-combed Bio-washed Cotton. Tailored drop-shoulder silhouette.'
+  },
+  {
+    id: 5,
+    name: 'Acid Wash Heavyweight Boxy Tee',
+    category: 'Tees',
+    gender: 'Men',
+    price: 899,
+    originalPrice: 1499,
+    sizes: ['S', 'M', 'L', 'XL'],
+    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&auto=format&fit=crop&q=80',
+    description: '240 GSM vintage mineral wash finish with thick ribbed collar.'
+  },
+  {
+    id: 6,
+    name: 'Minimalist Relaxed Heavyweight Hoodie',
+    category: 'Hoodies',
+    gender: 'Men',
+    price: 1499,
+    originalPrice: 2499,
+    sizes: ['M', 'L', 'XL'],
+    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
+    description: '380 GSM fleece-lined French Terry. Anti-pilling soft luxury finish.'
   }
 ];
-    
 
 const reviews = [
   {
@@ -53,21 +85,21 @@ const reviews = [
     name: 'Arman K.',
     city: 'Mumbai',
     rating: '★★★★★',
-    comment: 'Fabric weight is top notch. Genuine 240 GSM drop shoulder fit — feels like high-end luxury streetwear.'
+    comment: 'The Cuban chain weight and shine is top notch. Anti-tarnish finish is legit.'
   },
   {
     id: 2,
     name: 'Sneha R.',
     city: 'Delhi',
     rating: '★★★★★',
-    comment: 'The stitching and color precision are outstanding. WhatsApp confirmation was super fast and COD was seamless!'
+    comment: 'The signet ring fits perfectly. WhatsApp confirmation was super fast and COD was seamless!'
   },
   {
     id: 3,
     name: 'Rohan M.',
     city: 'Bengaluru',
     rating: '★★★★★',
-    comment: 'Best oversized tee under ₹1000 in India right now. No color bleed after wash.'
+    comment: 'Best streetwear jewellery and oversized tees under one brand. Premium quality.'
   }
 ];
 
@@ -89,7 +121,7 @@ export default function App() {
 
   const filteredProducts = activeCategory === 'All'
     ? products
-    : products.filter(p => p.category === activeCategory || p.gender === activeCategory);
+    : products.filter(p => p.category === activeCategory);
 
   const handleSizeSelect = (productId, size) => {
     setSelectedSizes(prev => ({ ...prev, [productId]: size }));
@@ -98,7 +130,7 @@ export default function App() {
   const openCheckoutModal = (product) => {
     const chosenSize = selectedSizes[product.id];
     if (!chosenSize) {
-      alert('Kripya pehle size select karein!');
+      alert('Kripya pehle size / option select karein!');
       return;
     }
     setSelectedProduct(product);
@@ -129,7 +161,7 @@ export default function App() {
       `🛍️ *NEW ORDER - EVERYFIT STUDIO*\n` +
       `--------------------------------\n` +
       `*Product:* ${selectedProduct.name}\n` +
-      `*Size:* ${size}\n` +
+      `*Size / Option:* ${size}\n` +
       `*Price:* ₹${selectedProduct.price}\n` +
       `--------------------------------\n` +
       `📍 *DELIVERY DETAILS:*\n` +
@@ -149,7 +181,7 @@ export default function App() {
 
   return (
     <div className="store-container">
-      {/* 1. TOP ANNOUNCEMENT BAR & NAVBAR */}
+      {/* 1. ANNOUNCEMENT & NAVBAR */}
       <header className="navbar">
         <div className="top-banner">Complimentary Pan-India Shipping on All Pre-Orders ✦ COD Available</div>
         <div className="nav-wrapper">
@@ -171,14 +203,14 @@ export default function App() {
         </div>
       </header>
 
-      {/* 2. HIGH-IMPACT HERO BANNER SECTION */}
+      {/* 2. HIGH-IMPACT HERO BANNER */}
       <section className="hero-section">
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <span className="hero-tag">EDITION 2026 // STREETWEAR COUTURE</span>
+          <span className="hero-tag">EDITION 2026 // STREETWEAR &amp; JEWELLERY</span>
           <h1 className="hero-title">FASHION FOR EVERYBODY</h1>
           <p className="hero-subtitle">
-            Engineered silhouettes with heavyweight bio-washed fabrics. Designed for everyday luxury and effortless street drape.
+            Engineered silhouettes and anti-tarnish waterproof stainless steel jewellery designed for everyday luxury.
           </p>
           <div className="hero-buttons">
             <a href="#drops" className="hero-primary-btn">EXPLORE DROPS</a>
@@ -187,7 +219,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. SHOP BY CATEGORY SECTION */}
+      {/* 3. CATEGORIES */}
       <section className="section-container" id="categories">
         <div className="section-header">
           <span className="section-eyebrow">CURATED COLLECTIONS</span>
@@ -215,7 +247,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 4. TRENDING PRODUCTS GRID */}
+      {/* 4. TRENDING DROPS */}
       <section className="section-container" id="drops">
         <div className="section-header">
           <span className="section-eyebrow">LATEST ARRIVALS</span>
@@ -223,7 +255,6 @@ export default function App() {
           <div className="section-divider"></div>
         </div>
 
-        {/* Filter Pills */}
         <div className="filter-pill-bar">
           {categoriesList.map(cat => (
             <button
@@ -236,7 +267,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Product Cards */}
         <div className="product-grid">
           {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
@@ -255,19 +285,20 @@ export default function App() {
                   <span className="discount-tag">Save ₹{product.originalPrice - product.price}</span>
                 </div>
 
-                {/* Size Selector */}
                 <div className="size-selector-header">
-                  <span className="size-label">Select Size</span>
-                  <button
-                    type="button"
-                    className="size-guide-link"
-                    onClick={() => {
-                      setSizeGuideTab(product.gender === 'Women' ? 'Women' : 'Men');
-                      setShowSizeGuide(true);
-                    }}
-                  >
-                    📏 Size Guide
-                  </button>
+                  <span className="size-label">Select Option / Size</span>
+                  {product.category !== 'Jewellery' && (
+                    <button
+                      type="button"
+                      className="size-guide-link"
+                      onClick={() => {
+                        setSizeGuideTab(product.gender === 'Women' ? 'Women' : 'Men');
+                        setShowSizeGuide(true);
+                      }}
+                    >
+                      📏 Size Guide
+                    </button>
+                  )}
                 </div>
 
                 <div className="size-buttons">
@@ -290,7 +321,7 @@ export default function App() {
                 </button>
 
                 <div className="card-perks">
-                  <span>✦ 100% Cotton</span>
+                  <span>✦ Anti-Tarnish / 100% Cotton</span>
                   <span>✦ Cash on Delivery</span>
                 </div>
               </div>
@@ -299,38 +330,38 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. THE CRAFT & FABRIC DETAILS */}
+      {/* 5. CRAFT SECTION */}
       <section className="section-container craft-section" id="craft">
         <div className="craft-card">
           <div className="craft-text">
-            <span className="section-eyebrow">THE EVERYFIT PHILOSOPHY</span>
-            <h2 className="section-title">Engineered For Longevity</h2>
+            <span className="section-eyebrow">THE EVERYFIT STANDARD</span>
+            <h2 className="section-title">Built For Everyday Luxury</h2>
             <p className="craft-desc">
-              Har fabric ko thoughtfully source kiya gaya hai taaki har wash ke baad fit crisp aur fresh rahe. Premium drop shoulder cuts, zero shrinkage aur rich luxury hand-feel.
+              Har drop ko premium quality materials se taiyaar kiya gaya hai. Chahe anti-tarnish waterproof stainless steel chains ho ya 240+ GSM bio-washed heavy cotton garments.
             </p>
 
             <div className="craft-features">
               <div className="craft-feature-item">
-                <span className="feature-num">240+</span>
-                <strong>Heavyweight GSM</strong>
-                <p>Dense knit fabric that keeps its shape without sagging.</p>
+                <span className="feature-num">316L</span>
+                <strong>Surgical Steel</strong>
+                <p>100% waterproof and sweatproof jewellery that never loses its luster.</p>
               </div>
               <div className="craft-feature-item">
-                <span className="feature-num">100%</span>
-                <strong>Super-Combed Cotton</strong>
-                <p>Micro-fibers treated with bio-wash for a cashmere-soft touch.</p>
+                <span className="feature-num">240+</span>
+                <strong>Heavyweight GSM</strong>
+                <p>Dense knit fabric that keeps its shape wash after wash.</p>
               </div>
               <div className="craft-feature-item">
                 <span className="feature-num">0%</span>
-                <strong>Color Fade / Shrink</strong>
-                <p>Reactive dye technology tested for long-lasting vibrancy.</p>
+                <strong>Tarnish &amp; Fading</strong>
+                <p>Advanced PVD coating and reactive dyes for timeless durability.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. SOCIAL PROOF & REVIEWS */}
+      {/* 6. REVIEWS */}
       <section className="section-container reviews-section">
         <div className="section-header">
           <span className="section-eyebrow">COMMUNITY VOICES</span>
@@ -352,7 +383,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. TRUST BADGES STRIP */}
+      {/* 7. TRUST STRIP */}
       <section className="trust-strip">
         <div className="trust-item">
           <div className="trust-icon-box">💵</div>
@@ -378,13 +409,13 @@ export default function App() {
         <div className="trust-item">
           <div className="trust-icon-box">✨</div>
           <div>
-            <h4>Couture Streetwear</h4>
-            <p>Bio-washed luxury essentials</p>
+            <h4>Premium Grade</h4>
+            <p>Anti-tarnish &amp; bio-washed couture</p>
           </div>
         </div>
       </section>
 
-      {/* 8. LUXURY FOOTER */}
+      {/* 8. FOOTER */}
       <footer className="luxury-footer">
         <div className="footer-top">
           <div className="footer-brand">
@@ -494,7 +525,7 @@ export default function App() {
             </div>
 
             <div className="order-summary-box">
-              <p><strong>Item:</strong> {selectedProduct.name} (Size: {selectedSizes[selectedProduct.id]})</p>
+              <p><strong>Item:</strong> {selectedProduct.name} (Option: {selectedSizes[selectedProduct.id]})</p>
               <p><strong>Amount:</strong> ₹{selectedProduct.price} (Free Shipping)</p>
             </div>
 
@@ -510,61 +541,4 @@ export default function App() {
                 />
                 <input
                   type="tel"
-                  name="phone"
-                  placeholder="10-Digit Mobile Number *"
-                  required
-                  value={addressData.phone}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <textarea
-                name="address"
-                placeholder="Complete Address (House/Flat No., Street, Landmark) *"
-                required
-                rows="3"
-                value={addressData.address}
-                onChange={handleInputChange}
-              />
-
-              <div className="input-row">
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City *"
-                  required
-                  value={addressData.city}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="pincode"
-                  placeholder="6-Digit Pincode *"
-                  required
-                  value={addressData.pincode}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="payment-select">
-                <label>Payment Mode</label>
-                <select
-                  name="paymentMethod"
-                  value={addressData.paymentMethod}
-                  onChange={handleInputChange}
-                >
-                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
-                  <option value="UPI / Online on Delivery">UPI / Online on Delivery</option>
-                </select>
-              </div>
-
-              <button type="submit" className="confirm-order-btn">
-                Confirm & Order on WhatsApp
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+                  name="phon
