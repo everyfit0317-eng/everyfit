@@ -181,7 +181,7 @@ export default function App() {
 
   return (
     <div className="store-container">
-      {/* 1. ANNOUNCEMENT & NAVBAR */}
+      {/* 1. TOP ANNOUNCEMENT & NAVBAR */}
       <header className="navbar">
         <div className="top-banner">Complimentary Pan-India Shipping on All Pre-Orders ✦ COD Available</div>
         <div className="nav-wrapper">
@@ -321,7 +321,7 @@ export default function App() {
                 </button>
 
                 <div className="card-perks">
-                  <span>✦ Anti-Tarnish / 100% Cotton</span>
+                  <span>✦ Anti-Tarnish / 100% Quality</span>
                   <span>✦ Cash on Delivery</span>
                 </div>
               </div>
@@ -541,4 +541,61 @@ export default function App() {
                 />
                 <input
                   type="tel"
-                  name="phon
+                  name="phone"
+                  placeholder="10-Digit Mobile Number *"
+                  required
+                  value={addressData.phone}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <textarea
+                name="address"
+                placeholder="Complete Address (House/Flat No., Street, Landmark) *"
+                required
+                rows="3"
+                value={addressData.address}
+                onChange={handleInputChange}
+              />
+
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City *"
+                  required
+                  value={addressData.city}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="pincode"
+                  placeholder="6-Digit Pincode *"
+                  required
+                  value={addressData.pincode}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="payment-select">
+                <label>Payment Mode</label>
+                <select
+                  name="paymentMethod"
+                  value={addressData.paymentMethod}
+                  onChange={handleInputChange}
+                >
+                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                  <option value="UPI / Online on Delivery">UPI / Online on Delivery</option>
+                </select>
+              </div>
+
+              <button type="submit" className="confirm-order-btn">
+                Confirm & Order on WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
