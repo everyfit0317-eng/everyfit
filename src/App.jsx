@@ -6,7 +6,7 @@ const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
   { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=80' },
-  { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg.jpeg' },
+  { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg' },
   { id: 'Tees', name: 'Oversized Tees', image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80' },
   { id: 'Hoodies', name: 'Hoodies & Sweats', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=80' }
 ];
