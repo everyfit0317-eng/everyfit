@@ -320,16 +320,16 @@ export default function App() {
       {/* 7. TRUST STRIP */}
       <section className="trust-strip">
         <div className="trust-item">
-          <div className="trust-icon-box">💵</div>
-          <div>
-            <h4>Cash on Delivery</h4>
-            <p>Pay verified at your doorstep</p>
-          </div>
-        </div>
+  <div className="trust-icon-box">🔒</div>
+  <div>
+    <h4>100% Secure Payments</h4>
+    <p>UPI, Cards &amp; NetBanking</p>
+  </div>
+</div>
         <div className="trust-item">
           <div className="trust-icon-box">🔄</div>
           <div>
-            <h4>7-Day Free Exchange</h4>
+            <h4>7-Day Exchange</h4>
             <p>Doorstep size replacements</p>
           </div>
         </div>
@@ -345,6 +345,13 @@ export default function App() {
           <div>
             <h4>Premium Grade</h4>
             <p>Anti-tarnish &amp; bio-washed couture</p>
+          </div>
+        </div>
+        <div className="trust-item">
+          <div className="trust-icon-box">🛡️</div>
+          <div>
+            <h4>Easy Replacement</h4>
+            <p>48-hour issue reporting &amp; replacement support</p>
           </div>
         </div>
       </section>
