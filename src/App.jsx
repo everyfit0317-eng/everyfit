@@ -377,6 +377,7 @@ export default function App() {
 <p>Email: <a href="mailto:everyfit0317@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>everyfit0317@gmail.com</a></p>
 <p>Hours: Mon - Sat (10 AM - 8 PM)</p>
 <p>COD &amp; Pan-India Deliveries</p>
+<p><a href="https://www.instagram.com/everyfit_1703/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>📸 Instagram: @everyfit_1703</a></p>
           </div>
         </div>
 
