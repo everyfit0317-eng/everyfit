@@ -8,7 +8,7 @@ const categoriesList = [
   { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80' },
   { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg' },
   { id: 'Watches', name: 'Classic Watches', image: '/jewel19.jpg' },
-  { id: 'BestSellers', name: 'Statement Pieces', image: '/jewel11.jpg' }
+  { id: 'BestSellers', name: 'MENS ACCESSORIES', image: '/jewel11.jpg' }
 ];
 
 
