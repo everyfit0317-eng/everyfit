@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { products } from './data/products';
 import './App.css';
 
+import { Analytics } from '@vercel/analytics/react';
 const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
@@ -539,6 +540,7 @@ export default function App() {
           </div>
         </div>
       )}
+    <Analytics />
     </div>
   );
 }
