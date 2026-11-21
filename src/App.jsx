@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import { products } from './data/products';
 import './App.css';
-
 import { Analytics } from '@vercel/analytics/react';
+
 const WHATSAPP_NUMBER = '917822012372';
 
 const categoriesList = [
   { id: 'All', name: 'All Drops', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80' },
   { id: 'Jewellery', name: 'Luxury Jewellery', image: '/jewel1.jpg' },
   { id: 'Watches', name: 'Classic Watches', image: '/jewel19.jpg' },
-{ id: 'BestSellers', name: 'MENS ACCESSORIES', image: '/mens-acc.jpg.jpeg' },
+  { id: 'BestSellers', name: 'MENS ACCESSORIES', image: '/mens-acc.jpg.jpeg' },
 ];
 
-
+// Cosmos-style Trending Marquee Tags
+const trendingMarqueeItems = [
+  { label: 'ANTI-TARNISH CUBAN CHAINS', category: 'Jewellery' },
+  { label: '316L SURGICAL STEEL', category: 'Jewellery' },
+  { label: 'CLASSIC CHRONOGRAPH WATCHES', category: 'Watches' },
+  { label: 'WATERPROOF EVERYDAY LUXURY', category: 'All' },
+  { label: 'MENS STATEMENT RINGS', category: 'BestSellers' },
+  { label: '240+ GSM OVERSIZED DROPS', category: 'All' },
+  { label: 'GOLD PVD COATED BRACELETS', category: 'Jewellery' },
+  { label: 'EDITION 2026 CURATED', category: 'All' },
+];
 
 const reviews = [
   {
@@ -143,10 +153,10 @@ export default function App() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <span className="hero-tag">EDITION 2026 // TIMELESS LUXURY</span>
-<h1 className="hero-title">CURATED EVERYDAY LUXURY</h1>
-<p className="hero-subtitle">
-  Premium anti-tarnish waterproof jewellery &amp; classic timepieces designed for modern silhouettes.
-</p>
+          <h1 className="hero-title">CURATED EVERYDAY LUXURY</h1>
+          <p className="hero-subtitle">
+            Premium anti-tarnish waterproof jewellery &amp; classic timepieces designed for modern silhouettes.
+          </p>
           <div className="hero-buttons">
             <a href="#drops" className="hero-primary-btn">EXPLORE DROPS</a>
             <a href="#craft" className="hero-secondary-btn">OUR CRAFT</a>
@@ -188,6 +198,23 @@ export default function App() {
           <span className="section-eyebrow">LATEST ARRIVALS</span>
           <h2 className="section-title">Trending Drops</h2>
           <div className="section-divider"></div>
+        </div>
+
+        {/* COSMOS-STYLE INFINITE HORIZONTAL MARQUEE */}
+        <div className="cosmos-marquee-wrapper" aria-label="Trending Searches">
+          <div className="cosmos-marquee-track">
+            {[...trendingMarqueeItems, ...trendingMarqueeItems].map((item, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`cosmos-marquee-pill ${activeCategory === item.category ? 'is-active' : ''}`}
+                onClick={() => setActiveCategory(item.category)}
+              >
+                <span className="cosmos-dot">✦</span>
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="filter-pill-bar">
@@ -321,12 +348,12 @@ export default function App() {
       {/* 7. TRUST STRIP */}
       <section className="trust-strip">
         <div className="trust-item">
-  <div className="trust-icon-box">🔒</div>
-  <div>
-    <h4>100% Secure Payments</h4>
-    <p>UPI, Cards &amp; NetBanking</p>
-  </div>
-</div>
+          <div className="trust-icon-box">🔒</div>
+          <div>
+            <h4>100% Secure Payments</h4>
+            <p>UPI, Cards &amp; NetBanking</p>
+          </div>
+        </div>
         <div className="trust-item">
           <div className="trust-icon-box">🔄</div>
           <div>
@@ -373,12 +400,12 @@ export default function App() {
           </div>
 
           <div className="footer-column">
-           <h4>Concierge &amp; Support</h4>
-<p>WhatsApp: +91 78220 12372</p>
-<p>Email: <a href="mailto:everyfit0317@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>everyfit0317@gmail.com</a></p>
-<p>Hours: Mon - Sat (10 AM - 8 PM)</p>
-<p>COD &amp; Pan-India Deliveries</p>
-<p><a href="https://www.instagram.com/everyfit_1703/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>📸 Instagram: @everyfit_1703</a></p>
+            <h4>Concierge &amp; Support</h4>
+            <p>WhatsApp: +91 78220 12372</p>
+            <p>Email: <a href="mailto:everyfit0317@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>everyfit0317@gmail.com</a></p>
+            <p>Hours: Mon - Sat (10 AM - 8 PM)</p>
+            <p>COD &amp; Pan-India Deliveries</p>
+            <p><a href="https://www.instagram.com/everyfit_1703/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>📸 Instagram: @everyfit_1703</a></p>
           </div>
         </div>
 
@@ -534,13 +561,14 @@ export default function App() {
               </div>
 
               <button type="submit" className="confirm-order-btn">
-                Confirm & Order on WhatsApp
+                Confirm &amp; Order on WhatsApp
               </button>
             </form>
           </div>
         </div>
       )}
-    <Analytics />
+
+      <Analytics />
     </div>
   );
 }

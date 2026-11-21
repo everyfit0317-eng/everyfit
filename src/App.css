@@ -119,8 +119,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
-  padding: 60px 20px;
+background: url('/hero-banner.jpg') center/cover no-repeat;  padding: 60px 20px;
 }
 
 .hero-overlay {
@@ -914,5 +913,99 @@ body {
   }
   .hero-section {
     min-height: 60vh;
+  }
+}
+/* =========================================================
+   everyfit-STYLE TRENDING DROPS HORIZONTAL MARQUEE
+   ========================================================= */
+.everyfit-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0 22px;
+  margin-bottom: 10px;
+  /* everyfit.so jaisa left-right soft fade effect */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.everyfit-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: max-content;
+  animation: everyfitGlide 28s linear infinite;
+}
+
+/* Mouse le jane par smooth pause */
+.everyfit-marquee-wrapper:hover .everyfit-marquee-track {
+  animation-play-state: paused;
+}
+
+.everyfit-marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.everyfit-marquee-pill:hover {
+  transform: translateY(-2px);
+  border-color: #d4af37;
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.everyfit-marquee-pill.is-active {
+  border-color: #d4af37;
+  background: rgba(212, 175, 55, 0.18);
+}
+
+.everyfit-dot {
+  color: #d4af37;
+  font-size: 0.7rem;
+}
+
+@keyframes everyfitGlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile par thoda fast aur compact */
+@media (max-width: 640px) {
+  .everyfit-marquee-track {
+    gap: 10px;
+    animation-duration: 20s;
+  }
+  .everyfit-marquee-pill {
+    padding: 7px 14px;
+    font-size: 0.72rem;
   }
 }
